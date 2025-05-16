@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTodo } from './assets/todoSlice';
 
-function AddTodo() {
-  const [text, setText] = useState('');
+function TodoInput({ isEditing = false, editText = '', onSave, onCancel }) {
+  const [text, setText] = useState(editText || '');
   const dispatch = useDispatch();
 
-  const handleAdd = () => {
+  useEffect(() => {
+    setText(editText);
+  }, [editText]);
+
+  const handleSubmit = () => {
     if (text.trim()) {
-      dispatch(addTodo(text));
+      if (isEditing && onSave) {
+        onSave(text);
+      } else {
+        dispatch(addTodo(text));
+      }
       setText('');
     }
   };
@@ -18,11 +26,12 @@ function AddTodo() {
       <input
         value={text}
         onChange={e => setText(e.target.value)}
-        placeholder="Add a todo"
+        placeholder={isEditing ? 'Edit todo' : 'Add a todo'}
       />
-      <button onClick={handleAdd}>Add</button>
+      <button onClick={handleSubmit}>{isEditing ? 'Save' : 'Add'}</button>
+      {isEditing && <button onClick={onCancel}>Cancel</button>}
     </div>
   );
 }
 
-export default AddTodo;
+export default TodoInput;
