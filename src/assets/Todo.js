@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { toggleTodo, deleteTodo, editTodo } from './todoSlice';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTodo, deleteTodo, editTodo } from "./todoSlice";
 
 function Todos() {
-  const todos = useSelector(state => state.todos.list);
+  const todos = useSelector((state) => state.todos.list);
   const dispatch = useDispatch();
 
-  // Local state to track which todo is being edited
   const [editingId, setEditingId] = useState(null);
-  const [editText, setEditText] = useState('');
+  const [editText, setEditText] = useState("");
 
   const handleEditClick = (todo) => {
     setEditingId(todo.id);
@@ -20,12 +19,12 @@ function Todos() {
       dispatch(editTodo({ id, newText: editText }));
     }
     setEditingId(null);
-    setEditText('');
+    setEditText("");
   };
 
   return (
     <ul>
-      {todos.map(todo => (
+      {todos.map((todo) => (
         <li key={todo.id}>
           <input
             type="checkbox"
@@ -45,7 +44,11 @@ function Todos() {
             </>
           ) : (
             <>
-              <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
+              <span
+                style={{
+                  textDecoration: todo.completed ? "line-through" : "none",
+                }}
+              >
                 {todo.text}
               </span>
               <button onClick={() => handleEditClick(todo)}>Edit</button>

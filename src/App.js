@@ -1,5 +1,5 @@
 import React from 'react';
-import AddTodo from './AddTodo';
+import AddTodo from './TodoInput';
 import Todos from './assets/Todo';
 
 function App() {
