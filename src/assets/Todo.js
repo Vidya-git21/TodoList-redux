@@ -15,9 +15,8 @@ function Todos() {
   };
 
   const handleEditSave = (id) => {
-    if (editText.trim()) {
-      dispatch(editTodo({ id, newText: editText }));
-    }
+    let trimmedText = editText.trim()
+      dispatch(editTodo({ id, newText: trimmedText }));
     setEditingId(null);
     setEditText("");
   };

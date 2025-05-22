@@ -11,14 +11,13 @@ function TodoInput({ isEditing = false, editText = "", onSave, onCancel }) {
   }, [editText]);
 
   const handleSubmit = () => {
-    if (text.trim()) {
-      if (isEditing && onSave) {
-        onSave(text);
-      } else {
-        dispatch(addTodo(text));
-      }
-      setText("");
+    let trimmedText = text.trim();
+    if (isEditing && onSave) {
+      onSave(trimmedText);
+    } else {
+      dispatch(addTodo(trimmedText));
     }
+    setText("");
   };
 
   return (
